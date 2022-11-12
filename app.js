@@ -1,13 +1,14 @@
+const {createReadStream} = require('fs');
 
-//package.json is used to keep track of dependencies and other info on the node module.
-//it can be create manually or through npm init or npm init -y (which defaults all the values).
+const rstream = createReadStream("./Anime/One piece/bigFile.txt", { 
+  hughWaterMark: 100000,
+  encoding: 'utf8' 
+});
 
-//installing third party modules using npm
-//npm i <package name> local install
-//npm i -g <package name> global install
+rstream.on("data", (result)=>{
+  console.log(result);
+});
 
-const ld = require('lodash');
-
-const arr = [3, [2,[7,[5]]]];
-const newarr = ld.flattenDeep(arr);
-console.log(newarr);
+rstream.on("error", (err)=>{
+  console.log(err);
+});
